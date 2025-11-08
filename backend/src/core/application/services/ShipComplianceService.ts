@@ -1,12 +1,19 @@
 import { ShipComplianceRepository } from "../../ports/outbound";
 import { ShipCompliance } from "../../domain/entities/ShipCompliance";
 import { RouteRepository } from "../../ports/outbound";
-import {
-    TARGET_INTENSITY_2025,
-    calculateEnergyInScope,
-    calculateComplianceBalance,
-} from "../../../shared/Constants";
+export const TARGET_INTENSITY_2025 = Number(process.env.TARGET_INTENSITY_2025) || 89.3368; // gCO₂e/MJ
+export const ENERGY_FACTOR_MJ_PER_TON = Number(process.env.ENERGY_FACTOR_MJ_PER_TON) || 41000; // MJ/t
 
+export function calculateComplianceBalance(
+    targetIntensity: number,
+    actualIntensity: number,
+    energyInScope: number
+): number {
+    return (targetIntensity - actualIntensity) * energyInScope;
+}
+export function calculateEnergyInScope(fuelConsumptionTons: number): number {
+    return fuelConsumptionTons * ENERGY_FACTOR_MJ_PER_TON;
+}
 export class ShipComplianceService {
     constructor(
         private complianceRepo: ShipComplianceRepository,
