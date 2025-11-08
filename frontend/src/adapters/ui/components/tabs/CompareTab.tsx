@@ -7,7 +7,7 @@ import { ErrorMessage } from '../common/ErrorMessage';
 import { Card } from '../common/Card';
 import { Badge } from '../common/Badge';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, ReferenceLine } from 'recharts';
-import { FUEL_EU_CONSTANTS } from '@/shared/constants';
+import { FUEL_EU_CONSTANTS } from '../../../../shared/Constants';
 
 export const CompareTab: React.FC = () => {
   const { comparisons, loading, error, refetch } = useComparison();

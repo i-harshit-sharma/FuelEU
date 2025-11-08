@@ -4,7 +4,15 @@ import { useBanking } from '../../hooks/useBanking';
 import { Button } from '../common/Button';
 import { Card } from '../common/Card';
 import { Badge } from '../common/Badge';
-import type { ComplianceBalance } from "../../../../core/domain/entities/ComplianceBalance";
+/**
+ * Local fallback type for ComplianceBalance to avoid import path issues.
+ * Keep in sync with core/domain/entities/ComplianceBalance if that file exists.
+ */
+type ComplianceBalance = {
+  cbBefore?: number | null;
+  applied?: number | null;
+  cbAfter?: number | null;
+};
 import type { BankEntry } from '../../../../core/domain/entities/BankEntry';
 
 export const BankingTab: React.FC = () => {
@@ -176,8 +184,8 @@ export const BankingTab: React.FC = () => {
     }
   };
 
-  const hasSurplus = cbData && cbData.cbBefore > 0;
-  const hasDeficit = cbData && cbData.cbBefore < 0;
+  const hasSurplus = cbData && (cbData.cbBefore ?? 0) > 0;
+  const hasDeficit = cbData && (cbData.cbBefore ?? 0) < 0;
 
   return (
     <div className="space-y-6">
@@ -253,7 +261,7 @@ export const BankingTab: React.FC = () => {
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div className="text-center p-4 bg-gray-50 rounded-lg">
                   <div className="text-sm text-gray-600 mb-2">CB Before</div>
-                  <div className={`text-2xl font-bold ${cbData.cbBefore >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+                  <div className={`text-2xl font-bold ${((cbData.cbBefore ?? 0) >= 0) ? 'text-green-600' : 'text-red-600'}`}>
                     {cbData.cbBefore?.toLocaleString() || 0}
                   </div>
                   <div className="text-xs text-gray-500 mt-1">gCO₂eq</div>
@@ -269,7 +277,7 @@ export const BankingTab: React.FC = () => {
 
                 <div className="text-center p-4 bg-gray-50 rounded-lg">
                   <div className="text-sm text-gray-600 mb-2">CB After</div>
-                  <div className={`text-2xl font-bold ${cbData.cbAfter >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+                  <div className={`text-2xl font-bold ${((cbData.cbAfter ?? 0) >= 0) ? 'text-green-600' : 'text-red-600'}`}>
                     {cbData.cbAfter?.toLocaleString() || 0}
                   </div>
                   <div className="text-xs text-gray-500 mt-1">gCO₂eq</div>
