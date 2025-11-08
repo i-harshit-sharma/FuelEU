@@ -14,7 +14,7 @@ A modern React + TypeScript dashboard for managing FuelEU Maritime compliance, i
 ## 📋 Prerequisites
 
 - Node.js 18+ and npm/yarn
-- Backend API running on `http://localhost:3001`
+- Backend API running on `http://localhost:3000`
 
 ## 🛠️ Installation
 
@@ -96,7 +96,7 @@ The frontend connects to the backend via `/api` proxy:
 server: {
   proxy: {
     '/api': {
-      target: 'http://localhost:3001',
+      target: 'http://localhost:3000',
       changeOrigin: true,
     },
   },
@@ -135,16 +135,6 @@ The dashboard is fully responsive:
 - **Desktop**: Full multi-column layouts
 - **Tablet**: 2-column grid layouts
 - **Mobile**: Single column with stacked elements
-
-## 🧪 Testing
-
-```bash
-# Run tests
-npm test
-
-# Run tests with coverage
-npm test -- --coverage
-```
 
 ## 🔧 Configuration
 
