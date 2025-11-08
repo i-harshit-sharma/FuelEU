@@ -3,7 +3,7 @@ import { Route } from "../../domain/entities/Route";
 import {
     TARGET_INTENSITY_2025,
     calculatePercentDiff,
-} from "../../../shared/constants";
+} from "../../../shared/Constants";
 
 export class RouteService {
     constructor(private routeRepo: RouteRepository) {}
