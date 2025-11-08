@@ -7,7 +7,21 @@ import { ErrorMessage } from '../common/ErrorMessage';
 import { Card } from '../common/Card';
 import { Badge } from '../common/Badge';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, ReferenceLine } from 'recharts';
-import { FUEL_EU_CONSTANTS } from '../../../../shared/Constants';
+// import { FUEL_EU_CONSTANTS } from '@/shared/constants';
+// Shared constants for FuelEU Maritime compliance
+export const FUEL_EU_CONSTANTS = {
+  // Target intensity for 2025 (2% below 91.16)
+  TARGET_INTENSITY_2025: 89.3368, // gCO₂e/MJ
+  
+  // Energy conversion factor
+  ENERGY_CONVERSION_FACTOR: 41000, // MJ per ton of fuel
+  
+  // Base intensity (reference year)
+  BASE_INTENSITY: 91.16, // gCO₂e/MJ
+  
+  // Reduction percentages by year
+  REDUCTION_2025: 0.02, // 2%
+} as const;
 
 export const CompareTab: React.FC = () => {
   const { comparisons, loading, error, refetch } = useComparison();
@@ -57,7 +71,7 @@ export const CompareTab: React.FC = () => {
     <div className="space-y-6">
       {/* Compute Compliance Balance Button */}
       <Card title="Compliance Balance Computation">
-        <div className="p-4 bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-lg">
+        <div className="p-4 bg-gradient-to-r from-gray-50 to-gray-50 border border-blue-200 rounded-lg">
           <div className="flex items-center justify-between mb-3">
             <div>
               <h4 className="text-sm font-semibold text-blue-900">Compute CB for All Routes</h4>
@@ -69,8 +83,9 @@ export const CompareTab: React.FC = () => {
               onClick={handleComputeCompliance}
               disabled={computeLoading}
               variant="primary"
+              className='bg-gray-800'
             >
-              {computeLoading ? 'Computing...' : '🧮 Compute CB'}
+              {computeLoading ? 'Computing...' : ' Compute CB'}
             </Button>
           </div>
           
@@ -220,8 +235,8 @@ export const CompareTab: React.FC = () => {
                     stroke="green"
                     strokeDasharray="5 5"
                   />
-                  <Bar dataKey="baseline" fill="#3b82f6" name="Baseline" />
-                  <Bar dataKey="comparison" fill="#f59e0b" name="Comparison" />
+                  <Bar dataKey="baseline" fill="#666" name="Baseline" />
+                  <Bar dataKey="comparison" fill="#2948dc" name="Comparison" />
                 </BarChart>
               </ResponsiveContainer>
             </Card>

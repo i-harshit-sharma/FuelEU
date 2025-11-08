@@ -4,15 +4,13 @@ import { useBanking } from '../../hooks/useBanking';
 import { Button } from '../common/Button';
 import { Card } from '../common/Card';
 import { Badge } from '../common/Badge';
-/**
- * Local fallback type for ComplianceBalance to avoid import path issues.
- * Keep in sync with core/domain/entities/ComplianceBalance if that file exists.
- */
-type ComplianceBalance = {
-  cbBefore?: number | null;
-  applied?: number | null;
-  cbAfter?: number | null;
-};
+export interface ComplianceBalance {
+  shipId: string;
+  year: number;
+  cbBefore: number;
+  cbAfter: number;
+  applied?: number;
+}
 import type { BankEntry } from '../../../../core/domain/entities/BankEntry';
 
 export const BankingTab: React.FC = () => {

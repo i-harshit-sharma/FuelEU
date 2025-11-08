@@ -5,7 +5,27 @@ import { ErrorMessage } from '../common/ErrorMessage';
 import { Button } from '../common/Button';
 import { Card } from '../common/Card';
 import { Badge } from '../common/Badge';
-import { VESSEL_TYPES, FUEL_TYPES } from '../../../../shared/Constants';
+// import { VESSEL_TYPES, FUEL_TYPES } from '../../../../shared/Constants';
+const VESSEL_TYPES = [
+  'Container',
+  'BulkCarrier',
+  'Tanker',
+  'RoRo',
+  'General Cargo',
+  'LNG Carrier',
+  'Chemical Tanker',
+  'Cruise',
+] as const;
+
+const FUEL_TYPES = [
+  'HFO',
+  'MGO',
+  'LNG',
+  'Methanol',
+  'Ammonia',
+  'Hydrogen',
+  'Bio-LNG',
+]
 
 export const RoutesTab: React.FC = () => {
   const { routes, loading, error, setBaseline, refetch } = useRoutes();
@@ -53,16 +73,16 @@ export const RoutesTab: React.FC = () => {
         {/* Filters */}
         <div className="mb-6 grid grid-cols-1 md:grid-cols-3 gap-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-gray-800 mb-2">
               Vessel Type
             </label>
             <select
               value={vesselTypeFilter}
               onChange={(e) => setVesselTypeFilter(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+              className="w-full px-3 py-2 border bg-gray-100 border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
             >
               <option value="all">All Types</option>
-              {VESSEL_TYPES.map((type: string) => (
+              {VESSEL_TYPES.map((type) => (
                 <option key={type} value={type}>
                   {type}
                 </option>
@@ -77,10 +97,10 @@ export const RoutesTab: React.FC = () => {
             <select
               value={fuelTypeFilter}
               onChange={(e) => setFuelTypeFilter(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+              className="w-full px-3 py-2 border bg-gray-100 border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
             >
               <option value="all">All Fuels</option>
-              {FUEL_TYPES.map((type: string) => (
+              {FUEL_TYPES.map((type) => (
                 <option key={type} value={type}>
                   {type}
                 </option>
@@ -95,7 +115,7 @@ export const RoutesTab: React.FC = () => {
             <select
               value={yearFilter}
               onChange={(e) => setYearFilter(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+              className="w-full px-3 py-2 border bg-gray-100 border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
             >
               <option value="all">All Years</option>
               {years.map((year) => (
@@ -141,9 +161,6 @@ export const RoutesTab: React.FC = () => {
                   <span className="text-xs font-normal">(t)</span>
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Status
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                   Actions
                 </th>
               </tr>
@@ -182,21 +199,33 @@ export const RoutesTab: React.FC = () => {
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                       {route.totalEmissions.toLocaleString()}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      {route.isBaseline && <Badge variant="success">Baseline</Badge>}
-                    </td>
+                    
                     <td className="px-6 py-4 whitespace-nowrap text-sm">
-                      {!route.isBaseline && (
+                      {/* {!route.isBaseline && (
                         <Button
                           size="small"
                           variant="primary"
+                          className='bg-gray-600'
                           onClick={() => handleSetBaseline(route.routeId)}
                           loading={settingBaseline === route.routeId}
                           disabled={settingBaseline !== null}
                         >
                           Set Baseline
                         </Button>
-                      )}
+                      )} */}
+                      {route.isBaseline ?
+                      <div className='flex justify-center'>
+                        <Badge variant="success" className='mx-auto'>Baseline</Badge>
+                      </div> : <Button
+                          size="small"
+                          variant="primary"
+                          className='bg-gray-600'
+                          onClick={() => handleSetBaseline(route.routeId)}
+                          loading={settingBaseline === route.routeId}
+                          disabled={settingBaseline !== null}
+                        >
+                          Set Baseline
+                        </Button>}
                     </td>
                   </tr>
                 ))
