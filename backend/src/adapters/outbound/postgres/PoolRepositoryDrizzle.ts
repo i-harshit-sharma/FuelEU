@@ -1,5 +1,5 @@
 // src/adapters/outbound/postgres/PoolRepositoryDrizzle.ts
-import { db } from "../../../infrastructure/db/connection";
+import db  from "../../../infrastructure/db/connection";
 import { pools } from "../../../infrastructure/db/schema";
 import { eq } from "drizzle-orm";
 import { PoolRepository } from "../../../core/ports/outbound";

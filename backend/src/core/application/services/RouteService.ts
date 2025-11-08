@@ -1,9 +1,10 @@
 import { RouteRepository } from "../../ports/outbound";
 import { Route } from "../../domain/entities/Route";
-import {
-    TARGET_INTENSITY_2025,
-    calculatePercentDiff,
-} from "../../../shared/constants";
+export const TARGET_INTENSITY_2025 = Number(process.env.TARGET_INTENSITY_2025) || 89.3368; // gCO₂e/MJ
+export function calculatePercentDiff(comparison: number, baseline: number): number {
+    if (baseline === 0) return 0;
+    return ((comparison / baseline) - 1) * 100;
+}
 
 export class RouteService {
     constructor(private routeRepo: RouteRepository) {}

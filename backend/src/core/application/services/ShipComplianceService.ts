@@ -5,7 +5,7 @@ import {
     TARGET_INTENSITY_2025,
     calculateEnergyInScope,
     calculateComplianceBalance,
-} from "../../../shared/constants";
+} from "../../../shared/Constants";
 
 export class ShipComplianceService {
     constructor(
