@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "ts-node-dev --respawn --transpile-only src/infrastructure/server/index.ts",
-    "build": "chmod +x ./node_modules/.bin/tsc && tsc -p tsconfig.json",
+    "build": "tsc -p tsconfig.json",
     "start": "node build/infrastructure/server/index.js",
     "test": "echo \"no tests configured\" && exit 0",
     "seed": "tsx src/infrastructure/db/seed.ts",
