@@ -62,7 +62,7 @@ export const RoutesTab: React.FC = () => {
               className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
             >
               <option value="all">All Types</option>
-              {VESSEL_TYPES.map((type) => (
+              {VESSEL_TYPES.map((type: string) => (
                 <option key={type} value={type}>
                   {type}
                 </option>
@@ -80,7 +80,7 @@ export const RoutesTab: React.FC = () => {
               className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
             >
               <option value="all">All Fuels</option>
-              {FUEL_TYPES.map((type) => (
+              {FUEL_TYPES.map((type: string) => (
                 <option key={type} value={type}>
                   {type}
                 </option>
